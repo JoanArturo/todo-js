@@ -1,0 +1,80 @@
+/* ================= PANEL =================== */
+.panel {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--white);
+    transition: .3s ease-in-out;
+}
+.panel.show {
+    right: 0;
+}
+.panel-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.panel-header .btn-close-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* ================= FORM =================== */
+.form-group {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+.form-group label {
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 16px 18px;
+    font-size: 1rem;
+    border: 1px solid var(--input-border-color);
+    border-radius: 6px;
+}
+textarea {
+    resize: none;
+}
+
+/* ================= BUTTON =================== */
+.btn-save {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 16px 18px;
+    width: calc(100% - 2rem);
+    background-color: var(--primary);
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.btn-save:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.btn-save:active {
+    background-color: var(--primary-active);
+}
+
+/* ================= MEDIA FOR TABLET AND PC =================== */
+@media screen and (min-width: 600px) {
+    .panel {
+        max-width: 400px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        transition: .5s ease-in-out;
+    }
+}
