@@ -52,7 +52,40 @@
     </aside>
     <!-- End Panel -->
     
+    <!-- Begin Tasks Section -->
+    <div class="task-container">
+        <!--
+        <h4 class="task-empty">
+            <ion-icon name="sad-outline"></ion-icon>
+            Lista de tareas vacía
+        </h4>
+        -->
+        <div class="task">
+            <div class="task-options">
+                <button class="task-options-btn">
+                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                </button>
+                <div class="task-options-list">
+                    <button class="task-options-item">Editar</button>
+                    <button class="task-options-item text-danger">Borrar</button>
+                </div>
+            </div>
+            <h4 class="task-title">Tarea de programación</h4>
+            <p class="task-description">Hacer la tarea de programación sobre las estructuras de control</p>
+            <p class="task-date">
+                <ion-icon name="calendar-outline"></ion-icon>
+                05/09/2023
+            </p>
+            <button class="btn-complete">
+                Marcar como finalizado
+                <ion-icon name="checkmark-done-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <!-- End Tasks Section -->
+    
     <script src="./js/aside.js"></script>
+    <script src="./js/dropdown.js"></script>
     <script src="./js/app.js"></script>
     <!-- Ionic Icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

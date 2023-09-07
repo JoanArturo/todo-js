@@ -2,7 +2,11 @@
     --black: #1E1E1E;
     --primary: #FFD700;
     --primary-active: #EECA00;
+    --secondary: #001f3f;
+    --secondary-active: #002D5A;
+    --danger-color: #E91E63;
     --background-color: #E6E6FA;
     --white: #FFFFFF;
     --input-border-color: #D9D9D9;
+    --border-color: #E7E7E7;
 }
