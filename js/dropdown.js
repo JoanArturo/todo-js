@@ -1,14 +1,15 @@
 (() => {
-    const taskOptionsButtons = document.querySelectorAll('.task-options-btn');
-    const taskOptionsItems = document.querySelectorAll('.task-options-item');
-    
-    taskOptionsButtons.forEach(element => {
-        element.addEventListener('click', toggleDropdown);
-    });
+    const taskContainer = document.querySelector('.task-container');
+    taskContainer.addEventListener('click', detectTarget);
 
-    taskOptionsItems.forEach(element => {
-        element.addEventListener('click', closeAllDropdowns);
-    });
+    function detectTarget(event) {
+        const target = event.target;
+        if (target.classList.contains('task-options-btn')) {
+            toggleDropdown(event);
+        } else if (target.classList.contains('task-options-item')) {
+            closeAllDropdowns();
+        }
+    }
 
     function toggleDropdown(event) {
         const parent = event.target.closest('.task');

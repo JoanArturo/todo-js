@@ -26,6 +26,9 @@
     border: none;
     cursor: pointer;
 }
+.task-options-btn ion-icon {
+    pointer-events: none;
+}
 .task-options-list {
     position: absolute;
     top: 1rem;
