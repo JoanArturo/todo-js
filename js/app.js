@@ -9,6 +9,7 @@ const tasks = [
 
 const appInit = () => {
     loadTasks();
+    addEventToSaveTaskButton();
 }
 
 const loadTasks = () => {
@@ -21,7 +22,7 @@ const loadTasks = () => {
 
 const generateTaskHTML = task => {
     return `
-        <div class="task">
+        <div class="task" id="task${ task.id }">
             <div class="task-options">
                 <button class="task-options-btn">
                     <ion-icon name="ellipsis-vertical-outline"></ion-icon>
@@ -43,6 +44,78 @@ const generateTaskHTML = task => {
             </button>
         </div>
     `;
+}
+
+const addEventToSaveTaskButton = () => {
+    document.getElementById('btnSaveTask').addEventListener('click', saveTask);
+}
+
+const saveTask = event => {
+    event.preventDefault();
+    
+    if (validTaskForm()) {
+        const taskForm = document.forms.taskForm;
+        const { title, description, date } = taskForm.elements;
+        const task = new Task(title.value, description.value, new Date(date.value + "T00:00"));
+        tasks.push(task);
+    
+        clearTaskForm();
+        loadTasks();
+        closePanel();
+        followElementById(`#task${task.id}`);
+    }
+}
+
+const validTaskForm = () => {
+    let isValid = true;
+    const taskForm = document.forms.taskForm;
+    const { title, description, date } = taskForm.elements;
+    
+    turnOffAllErrorMessages(taskForm);
+
+    if (title.value == '') {
+        title.classList.add('invalid');
+        title.nextElementSibling.classList.add('invalid');
+        isValid = false;
+    }
+    
+    if (description.value == '') {
+        description.classList.add('invalid');
+        description.nextElementSibling.classList.add('invalid');
+        isValid = false;
+    }
+
+    if (date.value == '') {
+        date.classList.add('invalid');
+        date.nextElementSibling.classList.add('invalid');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+const turnOffAllErrorMessages = taskForm => {
+    const { title, description, date } = taskForm.elements;
+
+    title.classList.remove('invalid');
+    description.classList.remove('invalid');
+    date.classList.remove('invalid');
+
+    title.nextElementSibling.classList.remove('invalid');
+    description.nextElementSibling.classList.remove('invalid');
+    date.nextElementSibling.classList.remove('invalid');
+}
+
+const clearTaskForm = () => {
+    document.forms.taskForm.reset();
+}
+
+const closePanel = () => {
+    document.getElementById('panel').classList.remove('show');
+}
+
+const followElementById = elementId => {
+    document.location.href = elementId;
 }
 
 // Initialize app

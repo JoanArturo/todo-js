@@ -49,6 +49,20 @@
 textarea {
     resize: none;
 }
+.form-group input.invalid,
+.form-group textarea.invalid {
+    border-color: var(--danger-color);
+}
+.form-error {
+    display: none;
+    margin-top: 6px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: var(--danger-color);
+}
+.form-error.invalid {
+    display: inline-block;
+}
 
 /* ================= BUTTON =================== */
 .btn-save {
