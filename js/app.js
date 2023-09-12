@@ -1,5 +1,6 @@
 import DateHelper from "./helpers/date.helper.js";
 import Task from "./class/task.js";
+import Toast from "./toast.js";
 
 const tasks = [
     new Task('Tarea de programación', 'Descripción de la tarea', new Date()),
@@ -58,7 +59,8 @@ const saveTask = event => {
         const { title, description, date } = taskForm.elements;
         const task = new Task(title.value, description.value, new Date(date.value + "T00:00"));
         tasks.push(task);
-    
+        new Toast('toastContainer', 'Tarea guardada!');
+        
         clearTaskForm();
         loadTasks();
         closePanel();
