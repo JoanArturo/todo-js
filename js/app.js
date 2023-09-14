@@ -12,6 +12,7 @@ const appInit = () => {
     loadTasks();
     addEventToSaveTaskButton();
     detectEditTaskButtonClick();
+    detectDeleteTaskButtonClick();
 }
 
 const loadTasks = () => {
@@ -31,7 +32,7 @@ const generateTaskHTML = task => {
                 </button>
                 <div class="task-options-list">
                     <button class="task-options-item btn-edit-task" data-taskid="${ task.id }">Editar</button>
-                    <button class="task-options-item text-danger">Borrar</button>
+                    <button class="task-options-item text-danger btn-delete-task" data-taskid="${ task.id }">Borrar</button>
                 </div>
             </div>
             <h4 class="task-title">${ task.title }</h4>
@@ -185,6 +186,22 @@ const updateTask = (taskId, data) => {
     tasks[taskIndex] = task;
 
     return task;
+}
+
+const detectDeleteTaskButtonClick = () => {
+    document.getElementById('taskContainer').onclick = function(event) {
+        let target = event.target;
+
+        if (target.classList.contains('btn-delete-task'))
+            deleteTask(target.dataset.taskid);
+    };
+}
+
+const deleteTask = taskId => {
+    const taskIndex = tasks.findIndex(task => task.id == taskId);
+    tasks.splice(taskIndex, 1);
+    new Toast('toastContainer', 'Tarea eliminada');
+    loadTasks();
 }
 
 // Initialize app
