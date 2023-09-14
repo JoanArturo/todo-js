@@ -17,9 +17,15 @@ const appInit = () => {
 
 const loadTasks = () => {
     let tasksElements = "";
+    
+    // Empty list
+    if (tasks.length <= 0)
+        tasksElements = getMessageEmptyTaskListHTML();
+    
     tasks.forEach(task => {
         tasksElements += generateTaskHTML(task);
     });
+
     document.getElementById('taskContainer').innerHTML = tasksElements;
 }
 
@@ -202,6 +208,15 @@ const deleteTask = taskId => {
     tasks.splice(taskIndex, 1);
     new Toast('toastContainer', 'Tarea eliminada');
     loadTasks();
+}
+
+const getMessageEmptyTaskListHTML = () => {
+    return `
+        <h4 class="task-empty">
+            <ion-icon name="sad-outline"></ion-icon>
+            Lista de tareas vacía
+        </h4>
+    `;
 }
 
 // Initialize app
