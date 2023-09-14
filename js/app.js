@@ -137,6 +137,7 @@ const closePanel = () => {
     const panel = document.getElementById('panel');
     panel.classList.remove('show');
     delete panel.dataset.taskid;
+    changePanelTitle('Nueva Tarea');
 }
 
 const followElementById = elementId => {
@@ -154,15 +155,20 @@ const detectEditTaskButtonClick = () => {
 
 const editTask = taskId => {
     const task = tasks.find(task => task.id == taskId);
-    showPanel();
+    showPanel('Editar Tarea');
     fillTaskForm(task);
 }
 
-const showPanel = () => {
+const showPanel = panelTitle => {
     const panel = document.getElementById('panel');
+    changePanelTitle(panelTitle);
     
     if (panel.classList.contains('show') == false)
         panel.classList.add('show');
+}
+
+const changePanelTitle = title => {
+    document.querySelector('.panel-title').innerHTML = title;
 }
 
 const fillTaskForm = task => {
