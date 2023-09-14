@@ -144,12 +144,12 @@ const followElementById = elementId => {
 }
 
 const detectEditTaskButtonClick = () => {
-    document.getElementById('taskContainer').onclick = function(event) {
+    document.getElementById('taskContainer').addEventListener('click', function(event) {
         let target = event.target;
 
         if (target.classList.contains('btn-edit-task'))
             editTask(target.dataset.taskid);
-    };
+    });
 }
 
 const editTask = taskId => {
@@ -195,12 +195,12 @@ const updateTask = (taskId, data) => {
 }
 
 const detectDeleteTaskButtonClick = () => {
-    document.getElementById('taskContainer').onclick = function(event) {
+    document.getElementById('taskContainer').addEventListener('click', function(event) {
         let target = event.target;
 
         if (target.classList.contains('btn-delete-task'))
             deleteTask(target.dataset.taskid);
-    };
+    });
 }
 
 const deleteTask = taskId => {
