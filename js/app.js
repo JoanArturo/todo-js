@@ -11,6 +11,7 @@ const tasks = [
 const appInit = () => {
     loadTasks();
     addEventToSaveTaskButton();
+    detectEditTaskButtonClick();
 }
 
 const loadTasks = () => {
@@ -29,7 +30,7 @@ const generateTaskHTML = task => {
                     <ion-icon name="ellipsis-vertical-outline"></ion-icon>
                 </button>
                 <div class="task-options-list">
-                    <button class="task-options-item">Editar</button>
+                    <button class="task-options-item btn-edit-task" data-taskid="${ task.id }">Editar</button>
                     <button class="task-options-item text-danger">Borrar</button>
                 </div>
             </div>
@@ -57,9 +58,22 @@ const saveTask = event => {
     if (validTaskForm()) {
         const taskForm = document.forms.taskForm;
         const { title, description, date } = taskForm.elements;
-        const task = new Task(title.value, description.value, new Date(date.value + "T00:00"));
-        tasks.push(task);
-        new Toast('toastContainer', 'Tarea guardada!');
+        const panel = taskForm.closest('#panel');
+        let task;
+
+        // Update task
+        if (panel.dataset.taskid) {
+            const taskId = panel.dataset.taskid;
+            task = updateTask(taskId, { title: title.value, description: description.value, date: date.value });
+            new Toast('toastContainer', 'Cambios guardados!');
+        }
+        else
+        {
+            // Save new task
+            task = new Task(title.value, description.value, new Date(date.value + "T00:00"));
+            tasks.push(task);
+            new Toast('toastContainer', 'Tarea guardada!');
+        }
         
         clearTaskForm();
         loadTasks();
@@ -113,11 +127,64 @@ const clearTaskForm = () => {
 }
 
 const closePanel = () => {
-    document.getElementById('panel').classList.remove('show');
+    const panel = document.getElementById('panel');
+    panel.classList.remove('show');
+    delete panel.dataset.taskid;
 }
 
 const followElementById = elementId => {
     document.location.href = elementId;
+}
+
+const detectEditTaskButtonClick = () => {
+    document.getElementById('taskContainer').onclick = function(event) {
+        let target = event.target;
+
+        if (target.classList.contains('btn-edit-task'))
+            editTask(target.dataset.taskid);
+    };
+}
+
+const editTask = taskId => {
+    const task = tasks.find(task => task.id == taskId);
+    showPanel();
+    fillTaskForm(task);
+}
+
+const showPanel = () => {
+    const panel = document.getElementById('panel');
+    
+    if (panel.classList.contains('show') == false)
+        panel.classList.add('show');
+}
+
+const fillTaskForm = task => {
+    const taskForm = document.forms.taskForm;
+    const { title, description, date } = taskForm.elements;
+    const panel = taskForm.closest('#panel');
+
+    title.value = task.title;
+    description.value = task.description;
+    date.value = DateHelper.formatDate(task.date, '-', true);
+
+    panel.dataset.taskid = task.id;
+
+    // Clear form when closing panel
+    document.getElementById('btnClosePanel').onclick = () => {
+        clearTaskForm();
+        closePanel();
+    };
+}
+
+const updateTask = (taskId, data) => {
+    const taskIndex = tasks.findIndex(task => task.id == taskId);
+    const task = tasks[taskIndex];
+    task.title = data.title;
+    task.description = data.description;
+    task.date = new Date(data.date + "T00:00");
+    tasks[taskIndex] = task;
+
+    return task;
 }
 
 // Initialize app
