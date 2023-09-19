@@ -56,36 +56,40 @@
     <!-- End Panel -->
     
     <!-- Begin Tasks Section -->
-    <div class="task-container" id="taskContainer">
-        <!--
-        <h4 class="task-empty">
-            <ion-icon name="sad-outline"></ion-icon>
-            Lista de tareas vacía
-        </h4>
-        -->
-        <div class="task">
-            <div class="task-options">
-                <button class="task-options-btn">
-                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                </button>
-                <div class="task-options-list">
-                    <button class="task-options-item">Editar</button>
-                    <button class="task-options-item text-danger">Borrar</button>
+    <section>
+        <h5 class="section-title">Tareas pendientes</h5>
+        <div class="task-container" id="taskContainer">
+            <div class="task">
+                <div class="task-options">
+                    <button class="task-options-btn">
+                        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                    </button>
+                    <div class="task-options-list">
+                        <button class="task-options-item">Editar</button>
+                        <button class="task-options-item text-danger">Borrar</button>
+                    </div>
                 </div>
+                <h4 class="task-title">Tarea de programación</h4>
+                <p class="task-description">Hacer la tarea de programación sobre las estructuras de control</p>
+                <p class="task-date">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    05/09/2023
+                </p>
+                <button class="btn-complete">
+                    Marcar como finalizado
+                    <ion-icon name="checkmark-done-outline"></ion-icon>
+                </button>
             </div>
-            <h4 class="task-title">Tarea de programación</h4>
-            <p class="task-description">Hacer la tarea de programación sobre las estructuras de control</p>
-            <p class="task-date">
-                <ion-icon name="calendar-outline"></ion-icon>
-                05/09/2023
-            </p>
-            <button class="btn-complete">
-                Marcar como finalizado
-                <ion-icon name="checkmark-done-outline"></ion-icon>
-            </button>
         </div>
-    </div>
+    </section>
     <!-- End Tasks Section -->
+
+    <!-- Begin Completed Tasks Section -->
+    <section>
+        <h5 class="section-title section-title-border">Tareas completadas</h5>
+        <div class="task-container" id="completedTasksContainer"></div>
+    </section>
+    <!-- End Completed Tasks Section -->
 
     <!-- Begin Toast Container -->
     <div class="toast-container" id="toastContainer"></div>

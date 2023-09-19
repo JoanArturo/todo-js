@@ -5,11 +5,13 @@ import Toast from "./toast.js";
 const tasks = [
     new Task('Tarea de programación', 'Descripción de la tarea', new Date()),
     new Task('Leer Clean Code', 'Descripción de la tarea 2', new Date()),
-    new Task('Tarea de redes', 'Descripción de la tarea 3', new Date())
+    new Task('Tarea de redes', 'Descripción de la tarea 3', new Date()),
+    new Task('Investigación', 'Despligue en DigitalOcean', new Date(), true)
 ];
 
 const appInit = () => {
     loadTasks();
+    loadCompletedTasks();
     addEventToSaveTaskButton();
     detectEditTaskButtonClick();
     detectDeleteTaskButtonClick();
@@ -18,20 +20,22 @@ const appInit = () => {
 const loadTasks = () => {
     let tasksElements = "";
     
-    // Empty list
-    if (tasks.length <= 0)
+    // Check if there are no tasks
+    if (tasks.filter(task => task.isCompleted === false).length <= 0)
         tasksElements = getMessageEmptyTaskListHTML();
     
     tasks.forEach(task => {
-        tasksElements += generateTaskHTML(task);
+        if (task.isCompleted == false)
+            tasksElements += generateTaskHTML(task);
     });
 
     document.getElementById('taskContainer').innerHTML = tasksElements;
 }
 
 const generateTaskHTML = task => {
-    return `
-        <div class="task" id="task${ task.id }">
+    let classes = task.isCompleted ? 'task task-completed' : 'task';
+    let taskHTML = `
+        <div class="${ classes }" id="task${ task.id }">
             <div class="task-options">
                 <button class="task-options-btn">
                     <ion-icon name="ellipsis-vertical-outline"></ion-icon>
@@ -46,13 +50,19 @@ const generateTaskHTML = task => {
             <p class="task-date">
                 <ion-icon name="calendar-outline"></ion-icon>
                 ${ DateHelper.formatDate(task.date) }
-            </p>
+            </p>`;
+
+    if (task.isCompleted == false) {
+        taskHTML += `
             <button class="btn-complete">
                 Marcar como finalizado
                 <ion-icon name="checkmark-done-outline"></ion-icon>
-            </button>
-        </div>
-    `;
+            </button>`;
+    }
+
+    taskHTML += `</div>`;
+
+    return taskHTML;
 }
 
 const addEventToSaveTaskButton = () => {
@@ -84,6 +94,7 @@ const saveTask = event => {
         
         clearTaskForm();
         loadTasks();
+        loadCompletedTasks();
         closePanel();
         followElementById(`#task${task.id}`);
     }
@@ -145,11 +156,13 @@ const followElementById = elementId => {
 }
 
 const detectEditTaskButtonClick = () => {
-    document.getElementById('taskContainer').addEventListener('click', function(event) {
-        let target = event.target;
-
-        if (target.classList.contains('btn-edit-task'))
-            editTask(target.dataset.taskid);
+    document.querySelectorAll('.task-container').forEach(container => {
+        container.addEventListener('click', function(event) {
+            let target = event.target;
+    
+            if (target.classList.contains('btn-edit-task'))
+                editTask(target.dataset.taskid);
+        });
     });
 }
 
@@ -201,11 +214,13 @@ const updateTask = (taskId, data) => {
 }
 
 const detectDeleteTaskButtonClick = () => {
-    document.getElementById('taskContainer').addEventListener('click', function(event) {
-        let target = event.target;
-
-        if (target.classList.contains('btn-delete-task'))
-            deleteTask(target.dataset.taskid);
+    document.querySelectorAll('.task-container').forEach(container => {
+        container.addEventListener('click', function(event) {
+            let target = event.target;
+    
+            if (target.classList.contains('btn-delete-task'))
+                deleteTask(target.dataset.taskid);
+        });
     });
 }
 
@@ -214,15 +229,42 @@ const deleteTask = taskId => {
     tasks.splice(taskIndex, 1);
     new Toast('toastContainer', 'Tarea eliminada');
     loadTasks();
+    loadCompletedTasks();
 }
 
 const getMessageEmptyTaskListHTML = () => {
     return `
-        <h4 class="task-empty">
-            <ion-icon name="sad-outline"></ion-icon>
+        <p class="task-empty">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Lista de tareas vacía
-        </h4>
+        </p>
     `;
+}
+
+const loadCompletedTasks = () => {
+    let tasksElements = "";
+
+    // Check if there are no completed tasks
+    if (tasks.filter(task => task.isCompleted === true).length <= 0) {
+        hideCompletedTasksSection();
+    } else {
+        showCompletedTasksSection();
+    }
+    
+    tasks.forEach(task => {
+        if (task.isCompleted)
+            tasksElements += generateTaskHTML(task);
+    });
+
+    document.getElementById('completedTasksContainer').innerHTML = tasksElements;
+}
+
+const hideCompletedTasksSection = () => {
+    document.getElementById('completedTasksContainer').parentElement.classList.add('hidden');
+}
+
+const showCompletedTasksSection = () => {
+    document.getElementById('completedTasksContainer').parentElement.classList.remove('hidden');
 }
 
 // Initialize app
