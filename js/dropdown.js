@@ -1,6 +1,6 @@
 (() => {
-    const taskContainer = document.querySelector('.task-container');
-    taskContainer.addEventListener('click', detectTarget);
+    const taskContainers = document.querySelectorAll('.task-container');
+    taskContainers.forEach(container => container.addEventListener('click', detectTarget));
 
     function detectTarget(event) {
         const target = event.target;
