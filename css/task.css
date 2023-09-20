@@ -123,6 +123,7 @@ section.hidden {
 }
 .btn-complete ion-icon {
     color: var(--secondary);
+    pointer-events: none;
 }
 .btn-complete:hover ion-icon {
     color: var(--white);

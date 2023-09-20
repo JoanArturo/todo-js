@@ -15,6 +15,7 @@ const appInit = () => {
     addEventToSaveTaskButton();
     detectEditTaskButtonClick();
     detectDeleteTaskButtonClick();
+    detectCompletedTaskButtonClick();
 }
 
 const loadTasks = () => {
@@ -54,7 +55,7 @@ const generateTaskHTML = task => {
 
     if (task.isCompleted == false) {
         taskHTML += `
-            <button class="btn-complete">
+            <button class="btn-complete" data-taskid="${ task.id }">
                 Marcar como finalizado
                 <ion-icon name="checkmark-done-outline"></ion-icon>
             </button>`;
@@ -265,6 +266,29 @@ const hideCompletedTasksSection = () => {
 
 const showCompletedTasksSection = () => {
     document.getElementById('completedTasksContainer').parentElement.classList.remove('hidden');
+}
+
+const detectCompletedTaskButtonClick = () => {
+    document.querySelectorAll('.task-container').forEach(container => {
+        container.addEventListener('click', function(event) {
+            let target = event.target;
+    
+            if (target.classList.contains('btn-complete')) {
+                markTaskAsCompleted(target.dataset.taskid);
+                new Toast('toastContainer', 'Tarea completada :)');
+                loadTasks();
+                loadCompletedTasks();
+            }
+        });
+    });
+}
+
+const markTaskAsCompleted = taskId => {
+    tasks.find(task => {
+        if (task.id == taskId) {
+            task.isCompleted = true;
+        }
+    });
 }
 
 // Initialize app
