@@ -15,30 +15,39 @@ Este proyecto se trata de una aplicación web sencilla diseñada para gestionar 
 ## Preview 📸
 
 - Página principal (Móvil)
+
 ![App Screenshot](https://i.imgur.com/cX65lp0.png)
 
 - Agregar nueva tarea (Móvil)
+
 ![App Screenshot](https://i.imgur.com/J2DyqXc.png)
 
 - Editar tarea (Móvil)
+
 ![App Screenshot](https://i.imgur.com/1ER9yU6.png)
 
 - Acciones de tarea (Móvil)
+
 ![App Screenshot](https://i.imgur.com/GGjm42X.png)
 
 - Listado de tareas completadas (Móvil)
+
 ![App Screenshot](https://i.imgur.com/zpTptH9.png)
 
 - Página principal (Escritorio)
+
 ![App Screenshot](https://i.imgur.com/vcGEdQI.png)
 
 - Agregar nueva tarea (Escritorio)
+
 ![App Screenshot](https://i.imgur.com/HvIb52r.png)
 
 - Editar tarea (Escritorio)
+
 ![App Screenshot](https://i.imgur.com/WLzcy2t.png)
 
 - Listado de tareas completadas (Escritorio)
+
 ![App Screenshot](https://i.imgur.com/nupbJDd.png)
 
 
