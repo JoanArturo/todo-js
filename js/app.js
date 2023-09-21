@@ -3,10 +3,10 @@ import Task from "./class/task.js";
 import Toast from "./toast.js";
 
 const tasks = [
-    new Task('Tarea de programación', 'Descripción de la tarea', new Date()),
-    new Task('Leer Clean Code', 'Descripción de la tarea 2', new Date()),
-    new Task('Tarea de redes', 'Descripción de la tarea 3', new Date()),
-    new Task('Investigación', 'Despligue en DigitalOcean', new Date(), true)
+    new Task('Programación', 'Hacer ejercicios con JavaScript', new Date()),
+    new Task('Leer Clean Code', 'Leer de la página 1 a la 10 del libro Clean Code de Robert C. Martin', new Date()),
+    new Task('Proyecto web', 'Avanzar proyecto personal web de Laravel + Angular', new Date()),
+    new Task('Despliegue de proyecto', 'Desplegar proyecto web en DigitalOcean', new Date(), true)
 ];
 
 const appInit = () => {
@@ -97,7 +97,7 @@ const saveTask = event => {
         loadTasks();
         loadCompletedTasks();
         closePanel();
-        followElementById(`#task${task.id}`);
+        //followElementById(`#task${task.id}`);
     }
 }
 
