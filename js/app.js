@@ -246,11 +246,8 @@ const loadCompletedTasks = () => {
     let tasksElements = "";
 
     // Check if there are no completed tasks
-    if (tasks.filter(task => task.isCompleted === true).length <= 0) {
-        hideCompletedTasksSection();
-    } else {
-        showCompletedTasksSection();
-    }
+    if (tasks.filter(task => task.isCompleted === true).length <= 0)
+        tasksElements = getMessageEmptyTaskListHTML();
     
     tasks.forEach(task => {
         if (task.isCompleted)
@@ -258,14 +255,6 @@ const loadCompletedTasks = () => {
     });
 
     document.getElementById('completedTasksContainer').innerHTML = tasksElements;
-}
-
-const hideCompletedTasksSection = () => {
-    document.getElementById('completedTasksContainer').parentElement.classList.add('hidden');
-}
-
-const showCompletedTasksSection = () => {
-    document.getElementById('completedTasksContainer').parentElement.classList.remove('hidden');
 }
 
 const detectCompletedTaskButtonClick = () => {
